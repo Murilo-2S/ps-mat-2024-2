@@ -19,6 +19,8 @@ model Car {
   selling_date     DateTime?
   selling_price    Decimal?
   year_manufacture Int
+  customer_id      Int?
+  customer         Customer? @relation(fields: [customer_id], references: [id])
 }
 
 model User {
@@ -43,6 +45,7 @@ model Customer {
   phone          String
   email          String
   municipality   String
+  cars           Car[]         // Carros adquiridos pelo cliente    
 }
 model Seller {
   id                Int        @id @default(autoincrement())

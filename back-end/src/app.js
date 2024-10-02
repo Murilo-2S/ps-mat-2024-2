@@ -30,8 +30,8 @@ app.use("/", indexRouter);
 /*********** ROTAS DA API **************/
 
 // Middleware de verificação de autorização
-import authMiddleware from "./middleware/auth.js";
-app.use(authMiddleware);
+// import authMiddleware from "./middleware/auth.js";
+// app.use(authMiddleware);
 
 import carsRouter from "./routes/cars.js";
 app.use("/cars", carsRouter);
