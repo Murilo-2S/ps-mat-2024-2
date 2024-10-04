@@ -15,7 +15,7 @@ import cors from "cors";
 app.use(
   cors({
     origin: process.env.FRONT_END_URL.split(","),
-    // credentials: true
+    credentials: true, // Grava cookie no front-end
   })
 );
 
@@ -30,8 +30,8 @@ app.use("/", indexRouter);
 /*********** ROTAS DA API **************/
 
 // Middleware de verificação de autorização
-// import authMiddleware from "./middleware/auth.js";
-// app.use(authMiddleware);
+import authMiddleware from "./middleware/auth.js";
+app.use(authMiddleware);
 
 import carsRouter from "./routes/cars.js";
 app.use("/cars", carsRouter);
@@ -41,8 +41,5 @@ app.use("/customers", customersRouter);
 
 import usersRouter from "./routes/users.js";
 app.use("/users", usersRouter);
-
-import sellersRouter from "./routes/sellers.js";
-app.use("/sellers", sellersRouter);
 
 export default app;
