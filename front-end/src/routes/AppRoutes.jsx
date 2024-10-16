@@ -10,6 +10,8 @@ import CarList from "../pages/car/CarList";
 import CustomerForm from "../pages/customer/CustomerForm";
 import CustomerList from "../pages/customer/CustomerList";
 
+import UserList from "../pages/user/UserList";
+
 import About from "../pages/About";
 
 import Login from "../pages/Login";
@@ -74,6 +76,16 @@ export default function AppRoutes() {
           <AuthGuard>
             {" "}
             <CustomerForm />{" "}
+          </AuthGuard>
+        }
+      />
+
+      <Route
+        path="/users"
+        element={
+          <AuthGuard>
+            {" "}
+            <UserList />{" "}
           </AuthGuard>
         }
       />
