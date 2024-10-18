@@ -78,9 +78,9 @@ export default function UserList() {
   ];
 
   const [state, setState] = React.useState({
-    cars: [],
+    users: [],
   });
-  const { cars } = state;
+  const { users } = state;
 
   const { askForConfirmation, ConfirmDialog } = useConfirmDialog();
   const { notify, Notification } = useNotification();
@@ -100,7 +100,7 @@ export default function UserList() {
       const result = await myfetch.get("/users");
       setState({
         ...state,
-        cars: result,
+        users: result,
       });
     } catch (error) {
       console.error(error);
@@ -162,7 +162,7 @@ export default function UserList() {
       <Paper elevation={10}>
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid
-            rows={cars}
+            rows={users}
             columns={columns}
             initialState={{
               pagination: {
