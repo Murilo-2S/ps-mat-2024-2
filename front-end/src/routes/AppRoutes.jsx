@@ -84,7 +84,7 @@ export default function AppRoutes() {
       <Route
         path="/users"
         element={
-          <AuthGuard>
+          <AuthGuard adminOnly>
             {" "}
             <UserList />{" "}
           </AuthGuard>
@@ -93,7 +93,7 @@ export default function AppRoutes() {
       <Route
         path="/users/new"
         element={
-          <AuthGuard>
+          <AuthGuard adminOnly>
             {" "}
             <UserForm />{" "}
           </AuthGuard>
@@ -102,7 +102,7 @@ export default function AppRoutes() {
       <Route
         path="/users/:id"
         element={
-          <AuthGuard>
+          <AuthGuard adminOnly>
             {" "}
             <UserForm />{" "}
           </AuthGuard>
