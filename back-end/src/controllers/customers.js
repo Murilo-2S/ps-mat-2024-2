@@ -1,9 +1,14 @@
 import prisma from "../database/client.js";
+import Customer from "../models/customer.js";
+import { ZodError } from "zod";
 
 const controller = {}; // Objeto vazio
 
 controller.create = async function (req, res) {
   try {
+    // Chama a validação do Zod para o cliente
+    Customer.parse(req.body);
+
     await prisma.customer.create({ data: req.body });
 
     // HTTP 201: Created
@@ -11,8 +16,11 @@ controller.create = async function (req, res) {
   } catch (error) {
     console.error(error);
 
+    // Se for erro de validação do Zod retorna
+    // HTTP 422: Unprocessable Entity
+    if (error instanceof ZodError) res.status(422).send(error.issues);
     // HTTP 500: Internal Server Error
-    res.status(500).end();
+    else res.status(500).end();
   }
 };
 
