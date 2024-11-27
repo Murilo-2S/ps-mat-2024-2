@@ -66,6 +66,8 @@ controller.retrieveOne = async function (req, res) {
 
 controller.update = async function (req, res) {
   try {
+    Customer.parse(req.body);
+
     const result = await prisma.customer.update({
       where: { id: Number(req.params.id) },
       data: req.body,
@@ -78,8 +80,9 @@ controller.update = async function (req, res) {
   } catch (error) {
     console.error(error);
 
+    if (error instanceof ZodError) res.status(422).send(error.issues);
     // HTTP 500: Internal Server Error
-    res.status(500).end();
+    else res.status(500).end();
   }
 };
 

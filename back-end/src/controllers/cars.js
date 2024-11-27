@@ -1,9 +1,13 @@
 import prisma from "../database/client.js";
+import Car from "../models/car.js";
+import { ZodError } from "zod";
 
 const controller = {}; // Objeto vazio
 
 controller.create = async function (req, res) {
   try {
+    Car.parse(req.body);
+
     // Preenche qual usuário criou o carro com o id do usuário autenticado
     req.body.created_user_id = req.authUser.id;
 
@@ -18,8 +22,9 @@ controller.create = async function (req, res) {
   } catch (error) {
     console.error(error);
 
+    if (error instanceof ZodError) res.status(422).send(error.issues);
     // HTTP 500: Internal Server Error
-    res.status(500).end();
+    else res.status(500).end();
   }
 };
 
@@ -73,6 +78,8 @@ controller.retrieveOne = async function (req, res) {
 
 controller.update = async function (req, res) {
   try {
+    Car.parse(req.body);
+
     // Preenche qual usuário modificou por último o carro com o id
     // do usuário autenticado
     req.body.updated_user_id = req.authUser.id;
@@ -89,8 +96,9 @@ controller.update = async function (req, res) {
   } catch (error) {
     console.error(error);
 
+    if (error instanceof ZodError) res.status(422).send(error.issues);
     // HTTP 500: Internal Server Error
-    res.status(500).end();
+    else res.status(500).end();
   }
 };
 

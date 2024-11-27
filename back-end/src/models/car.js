@@ -5,6 +5,9 @@ const minSellingDate = new Date(1960, 0, 1); // Define a data mínima para 1 de 
 const maxYearManufacture = new Date();
 maxYearManufacture.setFullYear(maxYearManufacture.getFullYear());
 
+const minYear = minSellingDate.getFullYear();
+const maxYear = maxYearManufacture.getFullYear();
+
 export default z.object({
   brand: z
     .string()
@@ -16,14 +19,14 @@ export default z.object({
 
   color: z
     .string()
-    .max(12, { message: "A cor deve pode ter, no máximo, 12 caracteres" }),
+    .max(12, { message: "A cor deve ter, no máximo, 12 caracteres" }),
 
   year_manufacture: z.coerce
     .number()
-    .min(minSellingDate, {
+    .min(minYear, {
       message: "O ano de fabricação deve ser maior que 1960",
     })
-    .max(maxYearManufacture, {
+    .max(maxYear, {
       message: "O ano de fabricação deve ser menor que " + maxYearManufacture,
     }),
 
